@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLONG.OBL.ONG</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: #333333;
+        padding: 20px;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    /* if large screen, make body 50% screen width */
+    @media screen and (min-width: 992px) {
+        body {
+            width: 50%;
+            margin: 0 auto;
+        }
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: #0066cc;
+        margin-top: 40px;
+    }
+
+    p {
+        line-height: 1.5;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+    }
+
+    pre {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 1.2em;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 20px;
+
+        box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
+        background: #fffef0;
+    }
+
+    canvas {
+        display: block;
+
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<body>
+    <h1>My Favorite Oblong Objects</h1>
+
+    <h2>1. Watermelon</h2>
+    <img src="watermelon.jpg" alt="Watermelon" width="300">
+    <p>Watermelons are delicious oblong fruits with a refreshing juicy interior. They are perfect for hot summer days and make a great addition to fruit salads and smoothies.</p>
+
+    <h2>2. Football</h2>
+    <img src="football.jpg" alt="Football" width="300">
+    <p>Football is an oblong-shaped ball used in various sports such as American football and rugby. It is a popular sport around the world and provides hours of excitement and entertainment.</p>
+
+    <h2>3. Coffee Beans</h2>
+    <img src="coffee.jpg" alt="Coffee Beans" width="300">
+    <p>Coffee beans are small oblong seeds that come from the Coffea plant. They are roasted and ground to make the flavorful and energizing beverage that many people enjoy daily.</p>
+
+    <h1> Now, a poem about oblong objects</h1>
+    <pre>
+In a world beyond circles,
+Where orthogonal shapes reside,
+Lies a captivating appeal,
+Their oblong forms we cannot hide.
+        
+O how gracefully they stretch,
+These oblongs in all their might,
+Evoking a sense of intrigue,
+As they sway in plain sight.
+        
+From footballs on green fields,
+To fruit in vibrant hues,
+Oblongs capture unique essence,
+In diverse styles and beautiful views.
+        
+The watermelon, delicious and sweet,
+With luscious pulp, a true delight,
+Its oblong shape provokes desire,
+On hot summer days, quenching our plight.
+        
+And coffee beans, their magic profound,
+Roasted brown for brewing hearts,
+An oblong's aroma fills the air,
+Energizing minds as a caffeine art.
+        
+Embrace the charm the oblongs hold,
+From skyscrapers reaching the skies,
+To books stacked on shelves so neat,
+Oblongs, within their ways, mesmerize.
+        
+So let us celebrate oblong beauty,
+In nature, sports, and creation's tryst,
+From simple shapes aligned forever,
+In oblongs, unique glory exists.</pre>
+
+
+    <h1>Please enjoy this oblong video game console</h1>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+
+    <script>
+        // Setting up the canvas
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        const bird = {
+            x: 50,
+            y: canvas.height / 2,
+            radius: 20,
+            gravity: 0.5,
+            velocity: 0,
+            jump: -5,
+        };
+
+        let oblongs = [];
+
+        let gameState = "start"; // start, playing, end
+        let frame = 0;
+        let score = 0;
+
+        document.addEventListener("keydown", function (event) {
+            if (event.code === "Space" && gameState === "playing" && event.target == document.body) {
+                // bird.velocity = bird.jump;
+                event.preventDefault();
+                bird.gravity = -bird.gravity
+            }
+
+            if (gameState !== "playing") {
+                resetGame();
+                frame = 0;
+                score = 0;
+            }
+
+        });
+
+        function createOblong() {
+            const oblong = {
+                x: canvas.width,
+                y: Math.floor(Math.random() * (canvas.height - 100)), // y position range to avoid collision with canvas borders
+                width: 80,
+                height: 100, // random oblong height
+                isPassed: false,
+            };
+            oblongs.push(oblong);
+
+        }
+
+        function moveObstacles() {
+            for (let i = 0; i < oblongs.length; i++) {
+                oblongs[i].x -= 5; // Move oblong towards the bird
+
+                // Check if bird has passed an oblong
+                if (oblongs[i].x + oblongs[i].width < bird.x && !oblongs[i].isPassed) {
+                    oblongs[i].isPassed = true;
+                    oblongs = oblongs.filter((oblong) => !oblong.isPassed);
+                }
+
+                // Check for collision
+                if (
+                    bird.x < oblongs[i].x + oblongs[i].width &&
+                    bird.x + bird.radius > oblongs[i].x &&
+                    (bird.y < oblongs[i].y || bird.y + bird.radius > oblongs[i].y + oblongs[i].height)
+                ) {
+                    gameState = "end";
+                } else if (gameState === "playing") {
+                    score++;
+                }
+
+                if (oblongs[i].x + oblongs[i].width < 0) {
+                    oblongs.shift();
+                }
+            }
+        }
+
+        function resetGame() {
+            oblongs.length = 0;
+            // oblongs = []
+            gameState = "playing";
+            bird.y = canvas.height / 2;
+            bird.velocity = -5;
+            bird.gravity = 0.5;
+        }
+
+        function draw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            context.beginPath();
+            context.fillStyle = "#f26d55";
+            context.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+            // add text on top of bird
+            context.fillStyle = "#000";
+            context.font = "10px arial";
+            context.fillText("an oblongish object", bird.x - 30, bird.y - 20);
+
+            context.fillStyle = "#f26d22";
+            context.fill();
+            context.fillStyle = "#000"
+            context.font = "50px arial";
+            context.fillText(bird.gravity > 0 ? "ꜜ" : "ꜛ", bird.x - 14, bird.y + 25);
+
+            for (let i = 0; i < oblongs.length; i++) {
+                context.beginPath();
+                context.fillStyle = "#157f1f";
+                context.fillRect(oblongs[i].x, 0, oblongs[i].width, oblongs[i].y);
+
+                context.beginPath();
+                context.fillStyle = "#1f5762";
+                context.fillRect(oblongs[i].x, oblongs[i].y + oblongs[i].height, oblongs[i].width, canvas.height - oblongs[i].y - oblongs[i].height);
+            }
+
+            context.fillStyle = "#000";
+            context.font = "20px Arial";
+            context.fillText("Score: " + score, 20, 30);
+
+            if (gameState === "start") {
+                context.fillStyle = "#888";
+                context.font = "40px Arial";
+                context.fillText("Press Space to Start", canvas.width / 2 - 180, canvas.height / 2);
+            }
+
+            if (gameState === "end") {
+                context.fillStyle = "#888";
+                context.font = "40px Arial";
+                context.fillText("Game Over! Press Space to Play Again", canvas.width / 2 - 350, canvas.height / 2);
+            }
+
+
+
+            // console.log(oblongs)
+        }
+
+        function update() {
+            // request another frame
+
+            requestAnimationFrame(update);
+
+            // calc elapsed time since last loop
+
+            now = Date.now();
+            elapsed = now - then;
+
+            // if enough time has elapsed, draw the next frame
+
+            if (elapsed > fpsInterval) {
+
+                // Get ready for next frame by setting then=now, but also adjust for your
+                // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+                then = now - (elapsed % fpsInterval);
+            if (gameState === "playing") {
+                bird.velocity += bird.gravity;
+                bird.y += bird.velocity;
+
+                if (bird.y < -bird.radius || bird.y > canvas.height) {
+                    gameState = "end";
+                }
+            }
+
+            if (frame % 100 === 0) createOblong();
+            moveObstacles();
+
+            draw();
+            frame++;
+
+            }
+        }
+
+
+        var stop = false;
+        var frameCount = 0;
+        var fps, fpsInterval, startTime, now, then, elapsed;
+
+
+        // initialize the timer variables and start the animation
+
+        function startAnimating(fps) {
+            fpsInterval = 1000 / fps;
+            then = Date.now();
+            startTime = then;
+            update();
+        }
+
+        startAnimating(60);
+    </script>
+
+</body>
+
+</html>
