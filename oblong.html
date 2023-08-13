@@ -71,7 +71,7 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
-    ul > * {
+    ul>* {
         margin-top: 10px;
     }
 
@@ -169,6 +169,10 @@ In oblongs, unique glory exists.</pre>
         let gameState = "start"; // start, playing, end
         let frame = 0;
         let score = 0;
+
+        window.onkeydown = function (e) {
+            return !(e.keyCode == 32);
+        };
 
         document.addEventListener("keydown", function (event) {
             if (event.code === "Space" && gameState === "playing" && event.target == document.body) {
@@ -298,20 +302,20 @@ In oblongs, unique glory exists.</pre>
                 // Get ready for next frame by setting then=now, but also adjust for your
                 // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
                 then = now - (elapsed % fpsInterval);
-            if (gameState === "playing") {
-                bird.velocity += bird.gravity;
-                bird.y += bird.velocity;
+                if (gameState === "playing") {
+                    bird.velocity += bird.gravity;
+                    bird.y += bird.velocity;
 
-                if (bird.y < -bird.radius || bird.y > canvas.height) {
-                    gameState = "end";
+                    if (bird.y < -bird.radius || bird.y > canvas.height) {
+                        gameState = "end";
+                    }
                 }
-            }
 
-            if (frame % 100 === 0) createOblong();
-            moveObstacles();
+                if (frame % 100 === 0) createOblong();
+                moveObstacles();
 
-            draw();
-            frame++;
+                draw();
+                frame++;
 
             }
         }
