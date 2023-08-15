@@ -34,7 +34,7 @@
     }
 
     h2 {
-        color: #0066cc;
+        color: #000811;
         margin-top: 40px;
     }
 
@@ -77,18 +77,53 @@
 
     hr {
         margin-bottom: 40px;
-        background-color: #0066cc;
+        background-color: #000000;
         height: 2px;
         width: 100%;
         border: none;
     }
+
+    nav {
+        margin-bottom: 40px;
+        background-color: antiquewhite;
+        padding: 20px;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    nav > h2 {
+        margin: 10px;
+    }
+
+    a {
+        color: #000811;
+        text-decoration: underline;
+    }
+    
+    a:hover {
+        text-decoration: underline wavy #bc00006b;
+        color: #268a0f;
+    }
 </style>
 
 <body>
-    <h1>Welcom to OBLONG: The home for all things oblong</h1>
-    <hr>
+    <h1>Welcome to <a href="HTTPS://OBLONG.OBL.ONG">OBLONG.OBL.ONG</a>: The home for all things oblong</h1>
+    <!-- <hr> -->
 
-    <h1>My Favorite Oblong Objects</h1>
+    <nav>
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#obl_OBJECTS">Oblong Objects</a></li>
+            <li><a href="#obl_POEM">Oblong Poem</a></li>
+            <li><a href="#obl_GAME">Oblong Video Game</a></li>
+            <li><a href="#obl_AMAZON">Oblong Amazon Products</a></li>
+        </ol>
+    </nav>
+
+    <h1 id="obl_OBJECTS">My Favorite Oblong Objects</h1>
 
     <h2>1. Watermelon</h2>
     <img src="watermelon.jpg" alt="Watermelon" width="300">
@@ -102,7 +137,7 @@
     <img src="coffee.jpg" alt="Coffee Beans" width="300">
     <p>Coffee beans are small oblong seeds that come from the Coffea plant. They are roasted and ground to make the flavorful and energizing beverage that many people enjoy daily.</p>
 
-    <h1> Now, a poem about oblong objects</h1>
+    <h1 id="obl_POEM"> Now, a poem about oblong objects</h1>
     <pre>
 In a world beyond circles,
 Where orthogonal shapes reside,
@@ -140,16 +175,18 @@ From simple shapes aligned forever,
 In oblongs, unique glory exists.</pre>
 
 
-    <h1>Please enjoy this oblong video game console</h1>
+    <h1 id="obl_GAME">Please enjoy this oblong video game console</h1>
     <canvas id="canvas" width="1000" height="600"></canvas>
 
-    <h1>Now, a list of my favorite amazon products</h1>
+    <h1 id="obl_AMAZON">Now, a list of my favorite amazon products</h1>
     <ul>
         <li><a href="https://www.amazon.com/Pyrex-Basics-Quart-Oblong-Baking/dp/B00G9HM7U4/ref=sr_1_3?crid=1G28D3CJIAS35&keywords=oblong&qid=1691970435&sprefix=oblo%2Caps%2C205&sr=8-3">Pyrex Basics 2 Quart Glass <b>Oblong</b> Baking Dish, Clear 7 x 11 inch (Pack of 2)</a></li>
         <li><a href="https://www.amazon.com/UGG-Oblong-Faux-Scarf-Nimbus/dp/B0B6SMDR1X/ref=sr_1_7?crid=1G28D3CJIAS35&keywords=oblong&qid=1691970435&sprefix=oblo%2Caps%2C205&sr=8-7">UGG <b>Oblong</b> Faux Fur Scarf<a></li>
         <li><a href="https://www.amazon.com/Kate-Spade-New-York-Oblong/dp/B0C1DKFTH8/ref=sr_1_41?crid=1G28D3CJIAS35&keywords=oblong&qid=1691970435&sprefix=oblo%2Caps%2C205&sr=8-41">Kate Spade New York Mixed Dot <b>Oblong</b> Scarf<a></li>
         <li><a href="https://www.amazon.com/Misfit-Love/dp/B00HVR89L2/ref=sr_1_2?crid=1G28D3CJIAS35&keywords=oblong&qid=1691970435&sprefix=oblo%2Caps%2C205&sr=8-2">The <b>Oblongs</b>: Complete Series(2001)<a></li>
     </ul>
+
+    <footer>PLEASE CONTRIBUTE MORE OBLONGITY AT </footer>
     <script>
         // Setting up the canvas
         const canvas = document.getElementById("canvas");
