@@ -1,7 +1,15 @@
-What is OBLONG?
+<pre>
 
-OBLONG is OBLONG 
+  
+  What is OBLONG?
 
-Contributing to OBLONG?
+  OBLONG is OBLONG 
 
-OBLONG
+  Contributing to OBLONG?
+
+  must be OBLONG
+
+                        __________________
+  CONTRIBUTE TO BECOME |"OBLONG DEVELOPER"|
+                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+</pre>
