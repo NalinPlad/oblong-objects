@@ -211,19 +211,31 @@ In oblongs, unique glory exists.</pre>
             return !(e.keyCode == 32);
         };
 
-        document.addEventListener("keydown", function (event) {
-            if (event.code === "Space" && gameState === "playing" && event.target == document.body) {
-                // bird.velocity = bird.jump;
-                event.preventDefault();
+        function doPress(event) {
+            if (gameState === "playing") {
                 bird.gravity = -bird.gravity
             }
-
+    
             if (gameState !== "playing") {
                 resetGame();
                 frame = 0;
                 score = 0;
             }
+        }
 
+        document.addEventListener("keydown", function (event) {
+            if (event.code === "Space" && event.target == document.body){
+                event.preventDefault();
+                doPress(event);
+            }
+        });
+
+        canvas.addEventListener("click", function (event) {
+            doPress(event);
+        });
+
+        canvas.addEventListener("touchstart", function (event) {
+            doPress(event);
         });
 
         function createOblong() {
@@ -342,14 +354,15 @@ In oblongs, unique glory exists.</pre>
                 if (gameState === "playing") {
                     bird.velocity += bird.gravity;
                     bird.y += bird.velocity;
+                    
+                    if (frame % 100 === 0) createOblong();
+                    moveObstacles();
 
                     if (bird.y < -bird.radius || bird.y > canvas.height) {
                         gameState = "end";
                     }
                 }
 
-                if (frame % 100 === 0) createOblong();
-                moveObstacles();
 
                 draw();
                 frame++;
